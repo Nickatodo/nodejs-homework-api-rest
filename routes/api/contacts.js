@@ -4,16 +4,22 @@ const router = express.Router();
 
 const controllers = require("../../controllers/contactControllers/index");
 
-router.get("/", controllers.listContacts);
+const { validateJWT } = require("../../utils/validateJWT");
 
-router.get("/:contactId", controllers.getContactById);
+router.get("/", validateJWT, controllers.listContacts);
 
-router.post("/", controllers.addContact);
+router.get("/:contactId", validateJWT, controllers.getContactById);
 
-router.delete("/:contactId", controllers.removeContact);
+router.post("/", validateJWT, controllers.addContact);
 
-router.put("/:contactId", controllers.updateContact);
+router.delete("/:contactId", validateJWT, controllers.removeContact);
 
-router.patch("/:contactId/favorite", controllers.updateStatusContact);
+router.put("/:contactId", validateJWT, controllers.updateContact);
+
+router.patch(
+  "/:contactId/favorite",
+  validateJWT,
+  controllers.updateStatusContact
+);
 
 module.exports = router;
