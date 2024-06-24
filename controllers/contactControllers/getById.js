@@ -2,7 +2,10 @@ const { Contact } = require("../../schema/contactSchema");
 
 const getContactById = async (req, res) => {
   try {
-    const contact = await Contact.find({ _id: req.params.contactId });
+    const contact = await Contact.find({
+      _id: req.params.contactId,
+      ...(req.user ? { owner: req.user } : {}),
+    });
     res.status(200).json({
       contact,
     });

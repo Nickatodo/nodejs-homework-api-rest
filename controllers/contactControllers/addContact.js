@@ -12,6 +12,7 @@ const addContact = async (req, res) => {
       name: req.body.name,
       email: req.body.email,
       phone: req.body.phone,
+      owner: req.user,
     });
     const contact = await newContact.save();
     res.status(200).json({ contact });

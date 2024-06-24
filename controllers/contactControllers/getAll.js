@@ -6,6 +6,8 @@ const listContacts = async (req, res) => {
       {
         // Filtro Favoritos
         ...(req.query.favorite ? { favorite: req.query.favorite } : {}),
+        // Contactos del usuario por ID
+        ...(req.user ? { owner: req.user } : {}),
       },
       [],
       {
