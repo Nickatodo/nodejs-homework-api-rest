@@ -1,8 +1,22 @@
 const { Contact } = require("../../schema/contactSchema");
 
-const listContacts = async (_, res) => {
+const listContacts = async (req, res) => {
   try {
-    const contacts = await Contact.find();
+    const conf = [
+      {
+        // Filtro Favoritos
+        ...(req.query.favorite ? { favorite: req.query.favorite } : {}),
+        // Contactos del usuario por ID
+        ...(req.user ? { owner: req.user } : {}),
+      },
+      [],
+      {
+        // Paginacion
+        ...(req.query.page ? { skip: req.query.page } : {}),
+        ...(req.query.limit ? { limit: req.query.limit } : {}),
+      },
+    ];
+    const contacts = await Contact.find(...conf);
     res.status(200).json({ contacts });
   } catch (error) {
     console.log(error);
