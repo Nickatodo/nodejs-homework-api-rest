@@ -23,6 +23,9 @@ const userSchema = Schema(
       type: String,
       default: null,
     },
+    avatarURL: {
+      type: String,
+    },
   },
   {
     versionKey: false,
@@ -40,4 +43,13 @@ const updateSubUserSchema = joi.object({
   subscription: joi.string().required(),
 });
 
-module.exports = { User, addUserSchema, updateSubUserSchema };
+const updateAvatarUserSchema = joi.object({
+  path: joi.string().required(),
+});
+
+module.exports = {
+  User,
+  addUserSchema,
+  updateSubUserSchema,
+  updateAvatarUserSchema,
+};

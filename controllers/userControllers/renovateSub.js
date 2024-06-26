@@ -8,7 +8,7 @@ const renovateSub = async (req, res) => {
         message: "Subscription required",
       });
     }
-    const contact = await User.findByIdAndUpdate(req.user, {
+    await User.findByIdAndUpdate(req.user, {
       subscription: req.body.subscription,
     });
     res.status(200).json({ message: "Updated subscription" });

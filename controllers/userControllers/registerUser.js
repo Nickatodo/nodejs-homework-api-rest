@@ -1,5 +1,6 @@
 const { User, addUserSchema } = require("../../schema/userSchema");
 const bcrypt = require("bcrypt");
+const gravatar = require("gravatar");
 
 const registerUser = async (req, res) => {
   try {
@@ -19,9 +20,12 @@ const registerUser = async (req, res) => {
     }
 
     const bcryptSalt = bcrypt.genSaltSync();
+    const url = gravatar.url(req.body.email);
+    console.log(url);
     const createUser = User({
       password: bcrypt.hashSync(password, bcryptSalt),
       email: req.body.email,
+      avatarURL: url,
     });
     const user = await createUser.save();
     res
