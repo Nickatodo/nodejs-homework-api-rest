@@ -4,9 +4,9 @@ const cors = require("cors");
 const connectDB = require("./db/config");
 require("dotenv").config();
 
-const app = express();
-connectDB();
 const appRouter = require("./routes/api/router");
+
+const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
@@ -14,7 +14,12 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
+if (process.env.NODE_ENV !== "test") {
+  connectDB();
+}
+
 app.use("/api", appRouter);
+app.use(express.static("public"));
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
