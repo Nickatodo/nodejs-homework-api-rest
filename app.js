@@ -4,9 +4,9 @@ const cors = require("cors");
 const connectDB = require("./db/config");
 require("dotenv").config();
 
-const appRouter = require("./routes/api/router");
-
 const app = express();
+
+const appRouter = require("./routes/api/router");
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 

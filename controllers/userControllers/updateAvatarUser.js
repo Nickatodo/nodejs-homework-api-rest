@@ -17,7 +17,7 @@ const updateAvatarUser = async (req, res) => {
     const validate = updateAvatarUserSchema.validate({ path: temPath });
     if (validate.error) {
       return res.status(400).json({
-        message: validationResult.error.message,
+        message: validate.error.message,
       });
     }
     // Se crea el nuevo directorio para la img.

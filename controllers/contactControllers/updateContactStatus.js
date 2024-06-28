@@ -30,7 +30,7 @@ const updateStatusContact = async (req, res) => {
       res.status(200).json({ contact });
     } else {
       return res.status(400).json({
-        message: "contact not found",
+        message: "Contact not found",
       });
     }
   } catch (error) {

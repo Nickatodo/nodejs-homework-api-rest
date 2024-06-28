@@ -10,9 +10,10 @@ const generateJWT = (_id, email, subscription) => {
       },
       (error, token) => {
         if (error) {
-          reject("No se pudo generar el token");
+          reject(new Error("No se pudo generar el token"));
+        } else {
+          resolve(token);
         }
-        resolve(token);
       }
     );
   });
